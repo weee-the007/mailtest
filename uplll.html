@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    <h2>Upload a File</h2>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload File</button>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        emailjs.init("rAbZQAATx8kKPGbZs"); // Initialize EmailJS with your user ID
+        function uploadFile() {
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+            
+            // Check if a file is selected
+            if (!file) {
+                alert('Please select a file.');
+                return;
+            }
+            
+            // Send the file via email
+            var formData = new FormData();
+            formData.append('file', file);
+
+            emailjs.sendForm('service_a6j0yve', 'template_hdsa2ua', formData)
+                .then(function(response) {
+                    console.log('File sent successfully!', response);
+                    alert('File sent successfully!');
+                }, function(error) {
+                    console.error('Failed to send file!', error);
+                    alert('Failed to send file!');
+                });
+        }
+    </script>
+</body>
+</html>
